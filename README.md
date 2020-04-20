@@ -70,21 +70,21 @@
         vim ~/.bashrc
 
         export PATH=$PATH:/home/www/.python/bin
-
         alias python='python3.8'
 
         . ~/.bashrc
         
- 16. Установим из исходников virtualenv
+16. Установим из исходников среду виртуализации
  
- 	/home/www/.python/bin/easy_install-3.8 virtualenv
+ 		/home/www/.python/bin/easy_install-3.8 virtualenv
  
- Cоздайте пользователя для старта django-приложения. Создайте из-под него виртуальное окружение.
+17. Cоздадим пользователя для старта django-приложения. И создадим из-под него виртуальное окружение.
 
-	adduser django
-	login django
-	cd /home/django
-	virtualenv venv
+		adduser django
+		login django
+		cd /home/django
+		virtualenv venv
+
  17.
  18.
  19.
