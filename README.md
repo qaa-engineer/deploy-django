@@ -49,7 +49,7 @@
  
 12. Ставим must-have packages
 
-        sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make zsh tree redis-server libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python3-lxml python3-setuptools python3-pip libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev virtualenv supervisor
+        sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make zsh tree redis-server libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python3-lxml python3-setuptools python3-pip libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev virtualenv libpq-dev postgresql postgresql-contrib supervisor
 
 13. Ставим Python3 из исходников
 
@@ -121,18 +121,25 @@
 			start_response('200 OK', [('Content-Type','text/html')])
 			return [b"Hello World"]
 
-34. Если все работает, нажимаем ctrl-c, завершая процесс и продолжаем дальше.
-35. Теперь конфигурируем наш сайт. Устанавливаем postgresql из под рута.
+34. Если все работает, нажимаем ctrl-c, завершая процесс и продолжаем дальше. Переходим на пользователя root.
+35. Начинаем конфигурировать БД. В моем случае - PostgreSQL.
 	
-		apt-get install libpq-dev postgresql postgresql-contrib
 		su - postgres
 		createdb my_site
 		createuser -P django
 		psql
-		postgres=# GRANT ALL PRIVILEGES ON DATABASE my_site TO django;
-		su - root
+		postgres=# GRANT ALL PRIVILEGES ON DATABASE my_site TO django
+		\c my_site
+		GRANT ALL ON ALL TABLES IN SCHEMA public to django
+		GRANT ALL ON ALL SEQUENCES IN SCHEMA public to django
+		GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to django
+		\q
+		exit
+
+36. Тут вы должны оказаться под рутом. Устанавливаем интерфейс psycopg2 для работы с PostgreSQL, чтобы нам не писать на чистом SQL.
+
 		login django
 		source /home/django/venv/bin/activate
-		pip install psycopg2
+		pip3 install psycopg2
 
 36. 
