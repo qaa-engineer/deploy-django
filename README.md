@@ -89,12 +89,15 @@
 
  <h3>Загружаем проект с Github</h3>
 	
- 17. Клонируем проект
+ 17. Клонируем проект под рутом
  	
 		su - root
 		cd /home/django/
 		git clone https://github.com/trystep/postindex.git
 	
- 18.
+ 18. Удалим символическую ссылку
+ 
+ 		rm /etc/nginx/sites-enabled/default
+ 
  19.
  20.
