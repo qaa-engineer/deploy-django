@@ -144,14 +144,14 @@
 
 <h3>Загружаем дамп базы данных</h3>
 
-36. Обращаю внимание, что тут вы еще находитесь в среде виртуализации venv под пользователем django - (venv) django@*.
+36. Обращаю внимание, что тут вы должны находится в среде виртуализации venv под пользователем django.
 Есть 2 варианта загрузки дампа:
 
-	1. Выполняется со старыми настройками DATABASES в settings.py
+	Дамп выполняется со старыми настройками DATABASES в settings.py
 
 		python manage.py dumpdata > datadump.json
 
-	2. Выполняется с новыми настройками DATABASES в settings.py
+	Дамп выполняется с новыми настройками DATABASES в settings.py
 
 		python manage.py loaddata datadump.json
 	
