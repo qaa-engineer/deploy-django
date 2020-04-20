@@ -120,4 +120,19 @@
 		def application(env, start_response):
 			start_response('200 OK', [('Content-Type','text/html')])
 			return [b"Hello World"]
-34.
+
+34. Если все работает, нажимаем ctrl-c, завершая процесс и продолжаем дальше.
+35. Теперь конфигурируем наш сайт. Устанавливаем postgresql из под рута.
+	
+		apt-get install libpq-dev postgresql postgresql-contrib
+		su - postgres
+		createdb my_site
+		createuser -P django
+		psql
+		postgres=# GRANT ALL PRIVILEGES ON DATABASE my_site TO django;
+		su - root
+		login django
+		source /home/django/venv/bin/activate
+		pip install psycopg2
+
+36. 
