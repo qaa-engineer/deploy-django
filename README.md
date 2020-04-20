@@ -144,15 +144,8 @@
 
 <h3>Загружаем дамп базы данных</h3>
 
-36. Обращаю внимание, что тут вы должны находится в среде виртуализации venv под пользователем django.
-Есть 2 варианта загрузки дампа:
+36. Обращаю внимание, что тут вы должны находиться в среде виртуализации venv под пользователем django. dump - это ваш файл дампа/экспорта БД, формат может быть разный, cvs, txt и т.д.
 
-	Дамп выполняется со старыми настройками DATABASES в settings.py
-
-		python manage.py dumpdata > datadump.json
-
-	Дамп выполняется с новыми настройками DATABASES в settings.py
-
-		python manage.py loaddata datadump.json
+		psql -h localhost my_site django  < dump
 	
 37. 
