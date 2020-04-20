@@ -6,4 +6,5 @@
 
         apt-get update && apt-get upgrade
 
-3.
+3. Генерируем локали
+        locale-gen en_US en_US.UTF-8 ru_RU.UTF-8
