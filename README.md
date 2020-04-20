@@ -61,4 +61,22 @@
         make -j8 ; \
         sudo make altinstall
 
-14. 
+14. Обновляем pip
+
+        /home/www/.python/bin/python3.8 -m pip install -U pip
+ 
+15. Прописываем путь до свежего Python3 и алис. Перезапускаем файлик, чтобы изменения применились.
+
+        vim ~/.bashrc
+
+        export PATH=$PATH:/home/www/.python/bin
+
+        alias python='python3.8'
+
+        . ~/.bashrc
+        
+ 16.
+ 17.
+ 18.
+ 19.
+ 20.
