@@ -89,11 +89,11 @@
 
  <h3>Загружаем проект с Github</h3>
 	
- 17. Теперь клонируем проект в эту папку
+ 17. Клонируем проект
  	
-	su - root
-	cd /home/django/
-	git clone https://github.com/trystep/postindex.git
+		su - root
+		cd /home/django/
+		git clone https://github.com/trystep/postindex.git
 	
  18.
  19.
