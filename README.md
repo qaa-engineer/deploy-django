@@ -40,7 +40,7 @@
 
         rm -rf /etc/apache2
 
-11. Если все удалено, pапускаем Nginx. И смотрим статус:
+11. Если все удалено, запускаем Nginx. И смотрим статус:
 
         service nginx start
         service nginx status
