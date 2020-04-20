@@ -85,7 +85,7 @@
 		cd /home/django
 		virtualenv venv
 
- <h3>Загружаем проект с Github<h3>
+ <h3>Загружаем проект с Github</h3>
 	
  17. Теперь клонируем проект в эту папку
  	
