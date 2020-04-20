@@ -113,4 +113,11 @@
 
 		pip3 install uwsgi
 
-33. 
+33. Проверка. Создаем файл test.py, пишем в него функцию для проверки. Если не создается, создайте от рута.
+
+		vim test.py
+
+		def application(env, start_response):
+			start_response('200 OK', [('Content-Type','text/html')])
+			return [b"Hello World"]
+34.
