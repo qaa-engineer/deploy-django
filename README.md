@@ -142,4 +142,17 @@
 		source /home/django/venv/bin/activate
 		pip3 install psycopg2
 
-36. 
+<h3>Загружаем дамп базы данных</h3>
+
+36. Обращаю внимание, что тут вы еще находитесь в среде виртуализации venv под пользователем django - (venv) django@*.
+Есть 2 варианта загрузки дампа:
+
+	1. Выполняется со старыми настройками DATABASES в settings.py
+
+		python manage.py dumpdata > datadump.json
+
+	2. Выполняется с новыми настройками DATABASES в settings.py
+
+		python manage.py loaddata datadump.json
+	
+37. 
