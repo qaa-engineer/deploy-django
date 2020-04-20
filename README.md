@@ -91,13 +91,13 @@
 	
  17. Клонируем проект под рутом
  	
-		su - root
-		cd /home/django/
-		git clone https://github.com/trystep/postindex.git
+			su - root
+			cd /home/django/
+			git clone https://github.com/trystep/postindex.git
 	
  18. Удалим символическую ссылку
  
- 		rm /etc/nginx/sites-enabled/default
+			rm /etc/nginx/sites-enabled/default
  
  19.
  20.
