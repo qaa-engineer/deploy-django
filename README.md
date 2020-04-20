@@ -85,7 +85,14 @@
 		cd /home/django
 		virtualenv venv
 
- 17.
+ <h3>Загружаем проект с Github<h3>
+	
+ 17. Теперь клонируем проект в эту папку
+ 	
+	su - root
+	cd /home/django/
+	git clone https://github.com/trystep/postindex.git
+	
  18.
  19.
  20.
