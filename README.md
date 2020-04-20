@@ -47,7 +47,7 @@
  
 12. Ставим must-have packages
 
-        sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make zsh tree redis-server libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python3-lxml libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev supervisor
+        sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make zsh tree redis-server libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python3-lxml libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev virtualenv supervisor
 
 13. Ставим Python3 из исходников
 
@@ -75,7 +75,14 @@
 
         . ~/.bashrc
         
- 16.
+ 16. Cоздайте пользователя для старта django-приложения. Создайте из-под него виртуальное окружение.
+
+	apt-get install python3-dev python3-setuptools
+	easy_install-3.4 virtualenv
+	adduser django
+	login django
+	cd /home/django
+	virtualenv venv
  17.
  18.
  19.
