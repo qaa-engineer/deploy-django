@@ -9,3 +9,15 @@
 3. Генерируем локали
 
         locale-gen en_US en_US.UTF-8 ru_RU.UTF-8
+
+4. Устанавливаем Nginx, запускаем, смотрим статус
+
+        apt-get install nginx
+        service nginx start
+        service nginx status
+
+5. Проверяем на наличие ошибок локали
+
+        
+
+6. 
