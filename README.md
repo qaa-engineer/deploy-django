@@ -108,4 +108,9 @@
 31. Переходим в корневую папку проекта.
 
 		cd my_best_site_from_github/project
-20.
+
+32. Установим uWSGI с pip3
+
+		pip3 install uwsgi
+
+33. 
