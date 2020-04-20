@@ -49,7 +49,7 @@
  
 12. Ставим must-have packages
 
-        sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make zsh tree redis-server libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python3-lxml python3-setuptools libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev virtualenv supervisor
+        sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make zsh tree redis-server libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python3-lxml python3-setuptools python3-pip libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev virtualenv supervisor
 
 13. Ставим Python3 из исходников
 
@@ -99,5 +99,13 @@
  
 		rm /etc/nginx/sites-enabled/default
  
-19.
+19. Логинимся под юзером django. Активируем виртуальное окружение. Устанавливаем Django3.* в наше виртуальное окружение c pip3: 
+
+		login django
+		source venv/bin/activate
+		pip3 install django
+	
+31. Переходим в корневую папку проекта.
+
+		cd my_best_site_from_github/project
 20.
