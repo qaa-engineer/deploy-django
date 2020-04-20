@@ -51,14 +51,14 @@
 
 13. Ставим Python3 из исходников
 
-                mkdir ~/code ; \
-                cd code ; \
-                wget https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tgz ; \
-                tar xvf Python-3.8.* ; \
-                cd Python-3.8.2 ; \
-                mkdir ~/.python ; \
-                ./configure --enable-optimizations --prefix=/home/www/.python ; \
-                make -j8 ; \
-                sudo make altinstall
+        mkdir ~/code ; \
+        cd code ; \
+        wget https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tgz ; \
+        tar xvf Python-3.8.* ; \
+        cd Python-3.8.2 ; \
+        mkdir ~/.python ; \
+        ./configure --enable-optimizations --prefix=/home/www/.python ; \
+        make -j8 ; \
+        sudo make altinstall
 
 14. 
