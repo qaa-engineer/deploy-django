@@ -113,4 +113,4 @@
 
 		psql -h localhost dbms_db dbms  < my_import_db
 
-9.
+9. Находится в процессе разработки...
