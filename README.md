@@ -60,7 +60,50 @@
 		
 		vim /etc/profile
 		Добавим следующие строки:
-		    export LANGUAGE=ru_RU.UTF-8
-		    export LANG=ru_RU.UTF-8
-		    export LC_ALL=ru_RU.UTF-8
+			export LANGUAGE=ru_RU.UTF-8
+			export LANG=ru_RU.UTF-8
+			export LC_ALL=ru_RU.UTF-8
+		    
+		    
+		Изменим пароль для postges, создадим чистую базу данных с именем dbms_db под пользователем postgres:
+			sudo passwd postgres
+			su - postgres
+			export PATH=$PATH:/usr/lib/postgresql/12/bin
+			createdb --encoding UNICODE dbms_db --username postgres
+			exit
+		
+		
+		Тут мы опять перешли в среду виртуализации.
+		Создадим пользователя БД с именем dbms и предоставим ему большие привилегии.
+		psql — это интерактивный терминал PostgreSQL, в консоли будет так - postgres=#
+		
+			sudo -u postgres psql
+			postgres=# ...
+			create user dbms with password 'some_password';
+			ALTER USER dbms CREATEDB;
+			grant all privileges on database dbms_db to dbms;
+			\c dbms_db
+			GRANT ALL ON ALL TABLES IN SCHEMA public to dbms;
+			GRANT ALL ON ALL SEQUENCES IN SCHEMA public to dbms;
+			GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to dbms;
+			\q
+			deactivate
+			
+		Тут мы оказались под рутом. Теперь мы можем проверить соединение.
+		Создайте файл ~/.pgpass с логином и паролем для БД для быстрого подключения:
+			vim ~/.pgpass
+				localhost:5432:dbms_db:dbms:some_password
+				
+		Дайте права на выполнение и запустите соединение с БД.
+			chmod 600 ~/.pgpass
+			psql -h localhost -U dbms dbms_db
+		
+		Тут у вас должен получится примерно такой вывод на консоли:
+			SSL-соединение (протокол: TLSv1.3, шифр: TLS_AES_256_GCM_SHA384, бит: 256, сжатие: выкл.)
+			Введите "help", чтобы получить справку.
+			dbms_db=>
+			
+		Поздравляю, соединение с БД прошло успешно. Далее самое главное - как сделать дамп с вашей локалки.
+
+8. Загрузим дамп вашей базы данных с локальной машины.
 		
