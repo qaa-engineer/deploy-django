@@ -43,7 +43,10 @@
 		python -m venv env
 		. ./env/bin/activate
 			
-7. Устанавливаем и конфигурируем PostgreSQL. Обратите внимание, мы должны находиться сейчас в среде виртуализации.
+7. Устанавливаем и конфигурируем PostgreSQL.
+		
+		Обратите внимание, мы должны находиться сейчас в среде виртуализации.
+
 
 		wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - ; \
 		RELEASE=$(lsb_release -cs) ; \
