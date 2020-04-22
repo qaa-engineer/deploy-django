@@ -35,7 +35,7 @@
 
 		python -m pip install -U pip
 
-6. Извлекаем проект из репозитория Git, создаем и активировать виртуальную среду Python:
+6. Извлекаем проект из репозитория Git, создаем и активируем виртуальную среду Python:
 
 		cd code
 		git clone https://github.com/trystep/postindex.git
