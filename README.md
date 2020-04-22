@@ -35,82 +35,27 @@
 
 		python -m pip install -U pip
 
+6. Извлекаем проект из репозитория Git, создаем и активировать виртуальную среду Python:
 
-
-
-
-В данный момент я редактирую этот документ.....
- 
-16. Установим из исходников среду виртуализации
- 
- 		/home/www/.python/bin/easy_install-3.8 virtualenv
- 
-17. Cоздадим пользователя для старта django-приложения. И создадим из-под него виртуальное окружение.
-
-		adduser django
-		login django
-		cd /home/django
-		virtualenv venv
-
- <h3>Загружаем проект с Github</h3>
-	
-17. Клонируем проект под рутом
- 	
-		su - root
-		cd /home/django/
+		cd code
 		git clone https://github.com/trystep/postindex.git
+		cd postindex/project
+		python -m venv env
+		. ./env/bin/activate
+			
+7. Устанавливаем и конфигурируем PostgreSQL. Обратите внимание, мы должны находиться сейчас в среде виртуализации.
+
+	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - ; \
+	RELEASE=$(lsb_release -cs) ; \
+	echo "deb http://apt.postgresql.org/pub/repos/apt/ ${RELEASE}"-pgdg main | sudo tee  /etc/apt/sources.list.d/pgdg.list ; \
+	sudo apt update ; \
+	sudo apt -y install postgresql-11 ; \
+	sudo localedef ru_RU.UTF-8 -i ru_RU -fUTF-8 ; \
+	export LANGUAGE=ru_RU.UTF-8 ; \
+	export LANG=ru_RU.UTF-8 ; \
+	export LC_ALL=ru_RU.UTF-8 ; \
+	sudo locale-gen ru_RU.UTF-8 ; \
+	sudo dpkg-reconfigure locales
 	
-18. Удалим символическую ссылку
- 
-		rm /etc/nginx/sites-enabled/default
- 
-19. Логинимся под юзером django. Активируем виртуальное окружение. Устанавливаем Django3.* в наше виртуальное окружение c pip3: 
-
-		login django
-		source venv/bin/activate
-		pip3 install django
-	
-31. Переходим в корневую папку проекта.
-
-		cd my_best_site_from_github/project
-
-32. Установим uWSGI с pip3
-
-		pip3 install uwsgi
-
-33. Проверка. Создаем файл test.py, пишем в него функцию для проверки. Если не создается, создайте от рута.
-
-		vim test.py
-
-		def application(env, start_response):
-			start_response('200 OK', [('Content-Type','text/html')])
-			return [b"Hello World"]
-
-34. Если все работает, нажимаем ctrl-c, завершая процесс и продолжаем дальше. Переходим на пользователя root.
-35. Начинаем конфигурировать БД. В моем случае - PostgreSQL.
-	
-		su - postgres
-		createdb my_site
-		createuser -P django
-		psql
-		postgres=# GRANT ALL PRIVILEGES ON DATABASE my_site TO django
-		\c my_site
-		GRANT ALL ON ALL TABLES IN SCHEMA public to django
-		GRANT ALL ON ALL SEQUENCES IN SCHEMA public to django
-		GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to django
-		\q
-		exit
-
-36. Тут вы должны оказаться под рутом. Устанавливаем интерфейс psycopg2 для работы с PostgreSQL, чтобы нам не писать на чистом SQL.
-
-		login django
-		source /home/django/venv/bin/activate
-		pip3 install psycopg2
-
-<h3>Загружаем дамп базы данных</h3>
-
-36. Обращаю внимание, что тут вы должны находиться в среде виртуализации venv под пользователем django. dump - это ваш файл дампа/экспорта БД, формат может быть разный, cvs, txt и т.д.
-
-		psql -h localhost my_site django  < dump
-	
-37. Скоро допишу, застрял на этом шаге, БД не импортится...
+8. 
+		
