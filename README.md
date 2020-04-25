@@ -1,49 +1,54 @@
 # deploy-django
-Мой вариант. Полный список действий. Это действительно работает. Проверено.
 
-# Развертывание Django проекта c Github по шагам на чистую VPS c Debian 10.
+# Развертывание Django проекта c Github по шагам на чистую VPS c Debian 10 с Nginx и uWSGI.
 
-1. Обновляем и апгрейдим списки репозиториев.
+1. Обновляем списки репозиториев.
 
-        apt-get update && apt-get upgrade
+        	apt-get update
 
-2. Устанавливаем must-have пакеты.
-
-		apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make zsh tree redis-server nginx  libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python3-pip python3-lxml libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev supervisor
-
-3. Устанавливавам Python3 из исходников.
-
-		mkdir ~/code ; \
-		wget https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tgz ; \
-		tar xvf Python-3.8.* ; \
-		cd Python-3.8.2 ; \
-		mkdir ~/.python ; \
-		./configure --enable-optimizations --prefix=/home/www/.python ; \
-		make -j8 ; \
-		sudo make altinstall
-
-4. Пишем алис и путь для Python3.
+2. Пишем алис для Python3.
 
 		vim ~/.bashrc
 		
-		export PATH=$PATH:/home/www/.python/bin
-		alias python='python3.8'
+		alias python='python3.7'
 		
 		source ~/.bashrc
 
-5. Обновляем pip.
+3. Устанавливаем необходимые пакеты:
 
-		python -m pip install -U pip
+		apt-get install -y python3-setuptools libpython3-dev python3-dev git nginx uwsgi uwsgi-plugin-python3 virtualenv python3-pip
 
-6. Извлекаем проект из репозитория Git, создаем и активируем виртуальную среду Python:
+4. Настроим среду вирутализации.
 
-		cd code
-		git clone https://github.com/trystep/postindex.git
-		cd postindex/project
-		python -m venv env
-		. ./env/bin/activate
-			
-7. Устанавливаем и конфигурируем PostgreSQL.
+		cd /var/www
+		mkdir venv
+		cd venv/
+		virtualenv env
+
+		vim env/bin/activate
+		и добавим в конец файла:
+			export DJANGO_ENV=production
+			export DJANGO_ENV=production
+			export DJANGO_NAME=mydb
+			export DJANGO_USER=django
+			export DJANGO_PASSWORD=password1
+			export DJANGO_HOST=localhost
+			export DJANGO_PORT=5432
+			export ALLOWED_HOST=*
+		
+		Активируем виртуализацию:
+			source env/bin/activate
+			cd ..
+			git clone https://github.com/trystep/postindex.git
+			cd postindex/project
+			pip3 install -r requirements.txt
+			apt-get install python3-psycopg2
+			pip3 install django
+			python manage.py syncdb
+			python manage.py migrate
+			python manage.py collectstatic
+						
+5. Устанавливаем и конфигурируем PostgreSQL.
 		
 		Обратите внимание, мы должны находиться сейчас в среде виртуализации.
 
@@ -109,8 +114,64 @@
 		Выйдите на рута командой \q
 		Поздравляю, соединение с БД прошло успешно. Далее самое главное - как сделать дамп с вашей локалки.
 
-8. Загрузим дамп вашей базы данных с локальной машины. Зайдите в программу pgAdmin - правая клавиша над нужной таблицей - импорт, загрузите этот файл на сервак, затем наберите команду.
+6. Загрузим дамп вашей базы данных с локальной машины. Зайдите в программу pgAdmin - правая клавиша над нужной таблицей - импорт, загрузите этот файл на сервак, затем наберите команду.
 
 		psql -h localhost dbms_db dbms  < my_import_db
 
-9. Находится в процессе разработки...
+7. Настроим nginx
+
+		Создадим vim /etc/nginx/sites-available/project с содержимым:
+			
+			server {
+				listen 80;
+				server_name localhost;
+
+				location / {
+					uwsgi_pass unix:///tmp/main.sock;
+					include uwsgi_params;
+				}
+
+				location /static/ {
+					alias /var/www/postindex/project/static_final/;
+				}
+			}
+		
+		Создадим симлинк
+			ln -s /etc/nginx/sites-available/project /etc/nginx/sites-enabled/project
+
+8. Настроим uwsgi
+
+		Создадим с vim /etc/uwsgi/apps-available/project.ini c содержанием:
+		
+		[uwsgi]
+		vhost = true
+		plugins = python
+		socket = /tmp/main.sock
+		master = true
+		enable-threads = true
+		processes = 4
+		wsgi-file = /var/www/postindex/project/project/wsgi.py
+		virtualenv = /var/www/venv/env
+		chdir = /var/www/postindex/project
+		touch-reload =- /var/www/postindex/project/relood
+		env = DJANGO_ENV=production
+		env DJANGO_ENV=production
+		env DJANGO_NAME=mydb
+		env DJANGO_USER=django
+		env DJANGO_PASSWORD=password1
+		env DJANGO_HOST=localhost
+		env DJANGO_PORT=5432
+		env ALLOWED_HOST=*
+		
+		cd /var/www
+		chown -R www-data ./
+		
+		Сделаем симлинк
+			ln -s /etc/uwsgi/apps-available/project.ini /etc/uwsgi/apps-enabled/
+			
+9. Перезапускаем uwsgi и nginx:
+
+		service uwsgi restart
+		service nginx restart
+
+10. Вот и все!)	
