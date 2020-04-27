@@ -18,7 +18,7 @@
 		sudo /home/www/.python/bin/python3.8 -m pip install -U pip
 
 	
-2. Допишем в когфигурацию алиасы с патчем, чтобы вызывался последний Python.
+2. Допишем в конфигурацию алиасы и патчы, чтобы вызывался последний Python.
 	
 		vim ~/.bashrc
 
@@ -29,36 +29,46 @@
 
 		. ~/.bashrc
 
-4. Настроим среду вирутализации.
+3. Заходите на вашу страничку, вы увидете стартовую страницу nginx.
+Cоздайте пользователя для старта django-приложения, клонируейте репозиторий Github. Пока все под рутом.
 
-		cd /var/www
-		mkdir venv
-		cd venv/
-		virtualenv env
+		easy_install virtualenv
+		adduser django
+		cd /home/django
+		virtualenv venv
+		git clone https://github.com/trystep/postindex.git
 
-		vim env/bin/activate
-		и добавим в конец файла:
-			export DJANGO_ENV=production
-			export DJANGO_ENV=production
-			export DJANGO_NAME=mydb
-			export DJANGO_USER=django
-			export DJANGO_PASSWORD=password1
-			export DJANGO_HOST=localhost
-			export DJANGO_PORT=5432
-			export ALLOWED_HOST=*
-		
-		Активируем виртуализацию:
-			source env/bin/activate
-			cd ..
-			git clone https://github.com/trystep/postindex.git
-			cd postindex/project
-			pip3 install -r requirements.txt
-			apt-get install python3-psycopg2
-			pip3 install django
-			python manage.py syncdb
-			python manage.py migrate
-			python manage.py collectstatic
+Сейчас у вас должны быть такая структура папок: в /home/django находятся 2 папки - venv и папка с вашим проектом. Проект в этом примере называется postindex
+
+4. Создаем файл test.py для проверки uwsgi:
+
+		vim /home/django/postindex/project/test.py
+
+	c таким содержимым:
+
+		def application(env, start_response):
+			start_response('200 OK', [('Content-Type','text/html')])
+			return [b"Hello World"]
+
+5. Активируем виртуальное окружение под пользователем django и устанавливаем пакеты.
+
+		login django
+		source venv/bin/activate	
+		pip install django
+		pip install uwsgi
+	
+6. Запускаем uWSGI:
+
+		cd postindex/project
+		uwsgi --http-socket :9090 --wsgi-file test.py	
+
+7. Сейчас перейдя на ваш сайт по полрту 9090, вы должны увидеть "Hello world".
+Если все работает, нажимаем ctrl-c, завершая процесс и продолжаем дальше.
 						
+##########################################################################################
+
+
+
 5. Устанавливаем и конфигурируем PostgreSQL.
 		
 		Обратите внимание, мы должны находиться сейчас в среде виртуализации.
