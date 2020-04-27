@@ -1,22 +1,33 @@
 # deploy-django
 
-# Развертывание Django проекта c Github по шагам на чистую VPS c Debian 10 с Nginx и uWSGI.
+# Развертывание Django проекта c Github по шагам на чистую VPS c Ubuntu 18.04 LTS с Nginx и uWSGI.
 
-1. Обновляем списки репозиториев.
+1. Устанавливаем must-have пакеты, размещаем последний Python из исходников в одну папку. Это займет примерно 20 минут.
 
-        	apt-get update
+		apt-get update ; \
+		apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python3-lxml libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev nginx supervisor ; \
+		mkdir ~/code ; \
+		cd /code ; \
+		wget https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tgz ; \
+		tar xvf Python-3.8.* ; \
+		cd Python-3.8.2 ; \
+		mkdir ~/.python ; \
+		./configure --enable-optimizations --prefix=/home/www/.python ; \
+		make -j8 ; \
+		sudo make altinstall ; \
+		sudo /home/www/.python/bin/python3.8 -m pip install -U pip
 
-2. Пишем алис для Python3.
-
+	
+2. Допишем в когфигурацию алиасы с патчем, чтобы вызывался последний Python.
+	
 		vim ~/.bashrc
-		
-		alias python='python3.7'
-		
-		source ~/.bashrc
 
-3. Устанавливаем необходимые пакеты:
+		export PATH=$PATH:/home/www/.python/bin
+		alias python='python3.8'
+		export PATH=$PATH:/home/www/.python/bin/easy_install-3.8
+		alias easy_install='easy_install-3.8'
 
-		apt-get install -y python3-setuptools libpython3-dev python3-dev git nginx uwsgi uwsgi-plugin-python3 virtualenv python3-pip
+		. ~/.bashrc
 
 4. Настроим среду вирутализации.
 
