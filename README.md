@@ -50,12 +50,11 @@ Cоздайте пользователя для старта django-прилож
 			start_response('200 OK', [('Content-Type','text/html')])
 			return [b"Hello World"]
 
-5. Активируем виртуальное окружение под пользователем django и устанавливаем пакеты.
-
+5. Активируем виртуальное окружение и устанавливаем пакеты под юзером django.
 		login django
 		source venv/bin/activate	
-		pip install django
-		pip install uwsgi
+		pip3 install django
+		pip3 install uwsgi
 	
 6. Запускаем uWSGI:
 
