@@ -1,6 +1,6 @@
 # deploy-django
 
-# Развертывание Django проекта c Github по шагам на чистую VPS c Ubuntu 18.04 LTS с Nginx и uWSGI.
+# Развертывание Django проекта c Github по шагам на чистую VPS Ubuntu 18.04 LTS с Nginx и uWSGI.
 
 1. Устанавливаем must-have пакеты, размещаем последний Python из исходников в одну папку. Это займет примерно 20 минут.
 
