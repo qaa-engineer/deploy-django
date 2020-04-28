@@ -53,22 +53,22 @@
 
 Очень важно установить среду виртуализации такой же версии, что и ваш Python
 
-	python3.8 -m venv env		
-	git clone https://github.com/trystep/postindex.git
+		python3.8 -m venv env		
+		git clone https://github.com/trystep/postindex.git
 
 Сейчас у вас должна быть такая структура папок: в /home/django находятся 2 папки - env и папка с вашим проектом. Проект в этом примере называется postindex.
 
-	source env/bin/activate
-	cd postindex/project/
+		source env/bin/activate
+		cd postindex/project/
 		
 Очень важно пользоваться последней версией pip
 
-	python3.8 -m pip install --upgrade pip
-	pip install uwsgi
+		python3.8 -m pip install --upgrade pip
+		pip install uwsgi
 		
 requirements.txt - это список зависимостей вашего проекта. Он создается в PyCharm командой pip freeze > requirements.txt. Командой ниже мы установим все зависимости для проекта.
 
-	pip install -r requirements.txt
+		pip install -r requirements.txt
 	
 6. Запускаем uWSGI:
 	
