@@ -50,7 +50,7 @@
 5. Активируем виртуальное окружение и устанавливаем пакеты. Обязательно под юзером django.
 
 		login django
-		
+
 Очень важно установить среду виртуализации такой же версии, что и ваш Python
 
 		python3.8 -m venv env		
@@ -60,9 +60,12 @@
 
 		source env/bin/activate
 		cd postindex/project/
-	Очень важно пользоваться последней версией pip
+		
+Очень важно пользоваться последней версией pip
+	
 		python3.8 -m pip install --upgrade pip
 		pip install uwsgi
+		
 requirements.txt - это список зависимостей вашего проекта. Он создается в PyCharm командой pip freeze > requirements.txt. Командой ниже мы установим все зависимости для проекта.
 
 		pip install -r requirements.txt
