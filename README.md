@@ -18,7 +18,16 @@
 		sudo /home/www/.python/bin/python3.8 -m pip install -U pip
 
 	
-2. Допишем в конфигурацию алиасы и патчы, чтобы вызывался последний Python.
+2. Заходите на вашу страничку, вы увидете стартовую страницу nginx.
+Cоздайте пользователя для старта django-приложения, обязательно добавьте его в группу sudo.
+
+		easy_install virtualenv
+		adduser django
+		adduser django sudo
+		cd /home/django
+
+3. Допишем в конфигурацию алиасы и патчы, чтобы вызывался последний Python. Это надо сделать для рута и пользователя django.
+Заходим под рутом, делаем команды ниже. Затем заходим под пользователем django и делаем эти же команды. Дело в том, что у каждого отдельные файлы ~/.bashrc.
 	
 		vim ~/.bashrc
 
@@ -28,16 +37,8 @@
 		alias easy_install='easy_install-3.8'
 
 		. ~/.bashrc
-
-3. Заходите на вашу страничку, вы увидете стартовую страницу nginx.
-Cоздайте пользователя для старта django-приложенияь, добавьте его в группу sudo, клонируйте репозиторий Github. Пока все под рутом.
-
-		easy_install virtualenv
-		adduser django
-		adduser django sudo
-		cd /home/django
-
-4. Создаем файл test.py для проверки uwsgi:
+		
+4. Создаем файл test.py для проверки uwsgi. Это делается под рутом.
 
 		vim /home/django/postindex/project/test.py
 
@@ -47,9 +48,12 @@ Cоздайте пользователя для старта django-прилож
 			start_response('200 OK', [('Content-Type','text/html')])
 			return [b"Hello World"]
 
-5. Активируем виртуальное окружение и устанавливаем пакеты. Обязательно под юзером django. 
+5. Активируем виртуальное окружение и устанавливаем пакеты. Обязательно под юзером django.
+
 		login django
-	Очень важно установить среду виртуализации такой же версии, что и ваш Python
+		
+Очень важно установить среду виртуализации такой же версии, что и ваш Python
+
 		python3.8 -m venv env		
 		git clone https://github.com/trystep/postindex.git
 		
@@ -60,7 +64,7 @@ Cоздайте пользователя для старта django-прилож
 	Очень важно пользоваться последней версией pip
 		python3.8 -m pip install --upgrade pip
 		pip install uwsgi
-	requirements.txt - это список зависимостей вашего проекта. Он создается в PyCharm командой pip freeze > requirements.txt
+	requirements.txt - это список зависимостей вашего проекта. Он создается в PyCharm командой pip freeze > requirements.txt. Командой ниже мы установим все зависимости для проекта.
 		pip install -r requirements.txt
 	
 6. Запускаем uWSGI:
