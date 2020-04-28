@@ -30,15 +30,12 @@
 		. ~/.bashrc
 
 3. Заходите на вашу страничку, вы увидете стартовую страницу nginx.
-Cоздайте пользователя для старта django-приложения, клонируйте репозиторий Github. Пока все под рутом.
+Cоздайте пользователя для старта django-приложенияь, добавьте его в группу sudo, клонируйте репозиторий Github. Пока все под рутом.
 
 		easy_install virtualenv
 		adduser django
+		adduser django sudo
 		cd /home/django
-		virtualenv venv
-		git clone https://github.com/trystep/postindex.git
-
-Сейчас у вас должна быть такая структура папок: в /home/django находятся 2 папки - venv и папка с вашим проектом. Проект в этом примере называется postindex
 
 4. Создаем файл test.py для проверки uwsgi:
 
@@ -50,15 +47,24 @@ Cоздайте пользователя для старта django-прилож
 			start_response('200 OK', [('Content-Type','text/html')])
 			return [b"Hello World"]
 
-5. Активируем виртуальное окружение и устанавливаем пакеты под юзером django.
+5. Активируем виртуальное окружение и устанавливаем пакеты. Обязательно под юзером django. 
 		login django
-		source venv/bin/activate	
-		pip3 install django
-		pip3 install uwsgi
+	Очень важно установить среду виртуализации такой же версии, что и ваш Python
+		python3.8 -m venv env		
+		git clone https://github.com/trystep/postindex.git
+		
+Сейчас у вас должна быть такая структура папок: в /home/django находятся 2 папки - venv и папка с вашим проектом. Проект в этом примере называется postindex
+
+		source env/bin/activate
+		cd postindex/project/
+	Очень важно пользоваться последней версией pip
+		python3.8 -m pip install --upgrade pip
+		pip install uwsgi
+	requirements.txt - это список зависимостей вашего проекта. Он создается в PyCharm командой pip freeze > requirements.txt
+		pip install -r requirements.txt
 	
 6. Запускаем uWSGI:
 
-		cd postindex/project
 		uwsgi --http-socket :9090 --wsgi-file test.py	
 
 7. Сейчас перейдя на ваш сайт по порту 9090, то есть в браузере ваш_домен:9090, вы должны увидеть "Hello world".
