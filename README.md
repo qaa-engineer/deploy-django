@@ -18,7 +18,7 @@
 		sudo /home/www/.python/bin/python3.8 -m pip install -U pip
 
 	
-2. Допишем в конфигурацию алиасы и патчы, чтобы вызывался последний Python.
+2. Допишем в конфигурацию алиасы и патчи, чтобы вызывался последний Python.
 	
 		vim ~/.bashrc
 
@@ -34,16 +34,11 @@
 		easy_install virtualenv
 		adduser django
 		adduser django sudo
-		cd /home/django
 		login django
 		
 Повторим пункт 2 для этого пользователя - допишем в конфигурацию алиасы и патчи, чтобы вызывался последний Python.
 
-4. Под юзером django установим среду виртуализации и клонируем проект с гитхаб.
-
-		login django
-		
-Очень важно установить среду виртуализации такой же версии, что и ваш Python
+4. Под юзером django установим среду виртуализации и клонируем проект с гитхаб. Очень важно установить среду виртуализации такой же версии, что и ваш Python.
 
 		python3.8 -m venv env		
 		git clone https://github.com/trystep/postindex.git
