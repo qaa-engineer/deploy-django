@@ -35,6 +35,7 @@
 		adduser django
 		adduser django sudo
 		cd /home/django
+		login django
 		
 Повторим пункт 2 для этого пользователя - допишем в конфигурацию алиасы и патчи, чтобы вызывался последний Python.
 		
