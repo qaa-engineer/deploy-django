@@ -53,7 +53,7 @@
 		python3.8 -m pip install --upgrade pip
 		pip install uwsgi
 		
-	requirements.txt - это список зависимостей вашего проекта. Он создается в PyCharm командой pip freeze > requirements.txt. Командой ниже мы установим все зависимости для проекта.
+	requirements.txt - это список зависимостей вашего проекта. Он создается в PyCharm командой `pip freeze > requirements.txt`. Командой ниже мы установим все зависимости для проекта.
 
 		pip install -r requirements.txt
 		
