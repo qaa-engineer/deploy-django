@@ -29,17 +29,7 @@
 
 		. ~/.bashrc
 		
-3. Cоздаем пользователя для старта django-приложения, обязательно добавляем его в группу sudo.
-
-		easy_install virtualenv
-		adduser django
-		adduser django sudo
-		cd /home/django
-		login django
-		
-Повторим пункт 2 для этого пользователя - допишем в конфигурацию алиасы и патчи, чтобы вызывался последний Python.
-		
-4. Создаем файл test.py для проверки uwsgi. Это делается под рутом.
+3. Создаем файл test.py для проверки uwsgi.
 
 		vim /home/django/postindex/project/test.py
 
@@ -48,6 +38,16 @@
 		def application(env, start_response):
 			start_response('200 OK', [('Content-Type','text/html')])
 			return [b"Hello World"]
+			
+4. Cоздаем пользователя для старта django-приложения, обязательно добавляем его в группу sudo.
+
+		easy_install virtualenv
+		adduser django
+		adduser django sudo
+		cd /home/django
+		login django
+		
+Повторим пункт 2 для этого пользователя - допишем в конфигурацию алиасы и патчи, чтобы вызывался последний Python.
 
 5. Под юзером django установим среду виртуализации и клонируем проект с гитхаб.
 
