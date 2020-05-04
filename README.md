@@ -55,6 +55,7 @@
 		
 	requirements.txt - это список зависимостей вашего проекта. Он создается в PyCharm командой `pip freeze > requirements.txt`. Командой ниже мы установим все зависимости для проекта.
 
+		pip install django gunicorn psycopg2-binary ; \
 		pip install -r requirements.txt
 		
 5. Запускаем uWSGI. Если у вас нет файла test_uwsgi_deploy.py, то вы его можете создать автоматически набрав команду в PyCharm `manage.py check --deploy`.
