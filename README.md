@@ -1,6 +1,6 @@
 # deploy-django
 
-# Развертывание готового Django проекта c Github по шагам на чистую VPS Debian 9 с Nginx и uWSGI.
+# Развертывание готового проекта Django с Postgres по шагам на чистую VPS Debian 9 с Nginx, Gunicorn и uWSGI
 
 1. Устанавливаем must-have пакеты, размещаем последний Python из исходников в одну папку. Это займет примерно 20 минут.
 
