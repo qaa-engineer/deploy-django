@@ -189,57 +189,30 @@
 		Создадим vim /etc/nginx/sites-available/project с содержимым:
 			
 			server {
-				listen 80;
-				server_name localhost;
+			    listen 159.253.20.63:80 default_server;
 
-				location / {
-					uwsgi_pass unix:///tmp/main.sock;
-					include uwsgi_params;
-				}
+			    server_name _;
 
-				location /static/ {
-					alias /var/www/postindex/project/static_final/;
-				}
+			    location = /favicon.ico {
+				access_log off; log_not_found off;
+			    }
+
+			    location /static/ {
+				root /home/django/postindex/project;
+			    }
+
+			    location / {
+				include proxy_params;
+				proxy_pass http://unix:/run/gunicorn.sock;
+			    }
 			}
 		
 		Создадим симлинк
 			ln -s /etc/nginx/sites-available/project /etc/nginx/sites-enabled/project
 		
-##########################################################################################
-
-11. Настроим uwsgi
-
-		Создадим с vim /etc/uwsgi/apps-available/project.ini c содержанием:
-		
-		[uwsgi]
-		vhost = true
-		plugins = python
-		socket = /tmp/main.sock
-		master = true
-		enable-threads = true
-		processes = 4
-		wsgi-file = /var/www/postindex/project/project/wsgi.py
-		virtualenv = /var/www/venv/env
-		chdir = /var/www/postindex/project
-		touch-reload =- /var/www/postindex/project/relood
-		env = DJANGO_ENV=production
-		env DJANGO_ENV=production
-		env DJANGO_NAME=mydb
-		env DJANGO_USER=django
-		env DJANGO_PASSWORD=password1
-		env DJANGO_HOST=localhost
-		env DJANGO_PORT=5432
-		env ALLOWED_HOST=*
-		
-		cd /var/www
-		chown -R www-data ./
-		
-		Сделаем симлинк
-			ln -s /etc/uwsgi/apps-available/project.ini /etc/uwsgi/apps-enabled/
 			
-	Перезапускаем uwsgi и nginx:
+	Перезапускаем nginx:
 
-		service uwsgi restart
 		service nginx restart
 
 # Вот и все!)	
