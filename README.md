@@ -189,7 +189,7 @@
 		Создадим vim /etc/nginx/sites-available/project с содержимым:
 			
 			server {
-			    listen 159.253.20.63:80 default_server;
+			    listen IP_вашего_сервера:80 default_server;
 
 			    server_name _;
 
