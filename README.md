@@ -265,8 +265,9 @@ PyCharm `python manage.py check --deploy`.
 8. Тестирование способности Gunicorn обслуживать проект.
 
 	Перед выходом из виртуальной среды нужно протестировать способность Gunicorn обслуживать приложение. Для этого нам 
-	нужно войти в каталог нашего проекта и использовать Gunicorn для загрузки модуля WSGI проекта:
-
+	нужно войти в каталог нашего проекта и использовать Gunicorn для загрузки модуля WSGI проекта, дав предварительно права на испольнение файлу wsgi.py:
+		
+		sudo chmod u+x /home/django/postindex/project/project/wsgi.py
 		cd /home/django/postindex/project/
 		gunicorn --bind 0.0.0.0:9090 project.wsgi
 		
