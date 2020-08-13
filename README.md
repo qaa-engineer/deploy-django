@@ -159,6 +159,11 @@ HTTP в вызовы Python, которые наше приложение смо
 		
 		sudo -u postgres -i
 		pg_dump db > db.sql
+		
+	Как развернуть бэкап:
+		
+		sudo -u postgres -i
+		psql -d db -f db.sql
 
 4. Установим virtualenv для виртуализации, создадим пользователя для django-приложения, обязательно добавляем его в 
 группу sudo.
