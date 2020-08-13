@@ -155,6 +155,11 @@ HTTP в вызовы Python, которые наше приложение смо
 	
 	    https://postgrespro.ru/docs/postgrespro/12/sql-copy
 
+	Как сделать бэкап БД:
+		
+		sudo -u postgres -i
+		pg_dump db > db.sql
+
 4. Установим virtualenv для виртуализации, создадим пользователя для django-приложения, обязательно добавляем его в 
 группу sudo.
 
