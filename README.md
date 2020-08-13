@@ -102,6 +102,10 @@ HTTP в вызовы Python, которые наше приложение смо
 
 		GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;
 		
+	Для вновь созданных таблиц полезна команда:
+	
+		GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO myprojectuser;
+	
 	Завершив настройку, закройте диалог PostgreSQL с помощью следующей команды:
 
 		\q
