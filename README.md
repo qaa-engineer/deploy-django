@@ -9,7 +9,7 @@ HTTP в вызовы Python, которые наше приложение смо
 Мы будем устанавливать Django в виртуальной среде. Установка Django в отдельную среду проекта позволит отдельно 
 обрабатывать проекты и их требования.
 
-1. Устанавливаем must-have пакеты, размещаем последний Python из исходников в одну папку. Это займет примерно 20 минут.
+1. Устанавливаем must-have пакеты, размещаем Python из исходников в одну папку. Это займет примерно 20 минут.
 
 		apt-get update && apt-get upgrade -y; \
 		apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make libssl-dev zlib1g-dev 
