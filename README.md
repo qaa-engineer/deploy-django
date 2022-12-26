@@ -556,3 +556,19 @@ PyCharm `python manage.py check --deploy`.
     sudo nginx -t && sudo systemctl restart nginx
 
 Эти команды помогают адаптироваться к изменениям в случае изменения конфигурации.
+
+Для добавления нового пользователя БД с правами только на чтение:
+1) Создание группы:
+CREATE ROLE user_group;
+
+2) Создание пользователя:
+CREATE ROLE user_db WITH LOGIN ENCRYPTED PASSWORD 'passdb';
+
+3) Добавление пользователя в группу:
+GRANT user_group TO user_db;
+
+4) Выдача прав на подключение к БД:
+GRANT CONNECT ON DATABASE server_DB TO user_group;
+
+5) Выдача права на чтение (только на выполнение SELECT):
+GRANT SELECT ON all tables IN schema public TO user_group;
